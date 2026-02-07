@@ -18,4 +18,5 @@
 - `accessibility` - アクセシビリティ基礎（セマンティックHTML/ARIA/チェックリスト）
 - `react-suspense-tanstack-query` - React Suspense と TanStack Query の連携メモ
 - `modern-css` - 最新CSSの機能整理、よくあるCSSとの比較、遷移ベスプラ
+- `rust-tutorial` - Rustチュートリアル（The Rust Programming Language）の学習メモ
 
