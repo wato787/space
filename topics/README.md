@@ -14,4 +14,5 @@
 
 - `terraform` - IaC基礎、state/plan/apply、例コードまとめ
 - `example-topic` - テンプレの使い方サンプル（不要なら削除OK）
+- `go-pointer` - Goのポインタ基礎（`&` / `*` / `nil` / ポインタレシーバ）
 
