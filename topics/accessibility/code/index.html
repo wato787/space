@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Accessibility demo</title>
+    <style>
+      :root {
+        color-scheme: light;
+      }
+
+      body {
+        margin: 0;
+        font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+        line-height: 1.5;
+        color: #1a1a1a;
+        background: #f6f7f9;
+      }
+
+      header,
+      main,
+      aside,
+      footer {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 1rem 1.5rem;
+      }
+
+      header {
+        background: #ffffff;
+        border-bottom: 1px solid #d0d7de;
+      }
+
+      h1,
+      h2 {
+        margin-top: 0;
+      }
+
+      .skip-link {
+        position: absolute;
+        left: -9999px;
+        top: 0.5rem;
+        background: #0b5fff;
+        color: #ffffff;
+        padding: 0.5rem 0.75rem;
+        border-radius: 4px;
+        z-index: 10;
+      }
+
+      .skip-link:focus {
+        left: 0.75rem;
+      }
+
+      nav ul {
+        display: flex;
+        gap: 1rem;
+        padding: 0;
+        list-style: none;
+        margin: 0.5rem 0 0;
+      }
+
+      .card {
+        background: #ffffff;
+        border: 1px solid #d0d7de;
+        border-radius: 8px;
+        padding: 1rem;
+        margin-bottom: 1rem;
+      }
+
+      .stack > * + * {
+        margin-top: 0.75rem;
+      }
+
+      button,
+      input,
+      select {
+        font: inherit;
+      }
+
+      button {
+        background: #1f6feb;
+        color: #ffffff;
+        border: none;
+        border-radius: 4px;
+        padding: 0.5rem 0.75rem;
+        cursor: pointer;
+      }
+
+      button.secondary {
+        background: #f0f3f6;
+        color: #1a1a1a;
+        border: 1px solid #d0d7de;
+      }
+
+      input[type="email"] {
+        width: min(420px, 100%);
+        padding: 0.5rem;
+        border: 1px solid #8c959f;
+        border-radius: 4px;
+      }
+
+      .hint {
+        color: #57606a;
+        margin: 0.25rem 0 0;
+      }
+
+      .error {
+        color: #b42318;
+        margin: 0.25rem 0 0;
+      }
+
+      :focus-visible {
+        outline: 3px solid #0b5fff;
+        outline-offset: 2px;
+      }
+
+      .status {
+        min-height: 1.5rem;
+        padding-top: 0.5rem;
+        color: #0b5fff;
+      }
+
+      footer {
+        color: #57606a;
+        border-top: 1px solid #d0d7de;
+        background: #ffffff;
+      }
+    </style>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to main content</a>
+
+    <header>
+      <h1>Accessibility demo</h1>
+      <p>Minimal examples of semantic HTML and ARIA patterns.</p>
+      <nav aria-label="Primary">
+        <ul>
+          <li><a href="#controls">Controls</a></li>
+          <li><a href="#form">Form</a></li>
+          <li><a href="#status">Status</a></li>
+          <li><a href="#disclosure">Disclosure</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main id="main" tabindex="-1">
+      <section class="card" aria-labelledby="landmarks-title">
+        <h2 id="landmarks-title">Landmarks and headings</h2>
+        <p>
+          One clear <strong>h1</strong>, a logical heading order, and landmarks
+          help screen reader users move quickly.
+        </p>
+        <ul>
+          <li>Skip link jumps straight to main content.</li>
+          <li>Nav has an accessible label.</li>
+          <li>Cards are grouped by section headings.</li>
+        </ul>
+      </section>
+
+      <section id="controls" class="card stack" aria-labelledby="controls-title">
+        <h2 id="controls-title">Controls with state</h2>
+        <p>Buttons expose their state via ARIA attributes.</p>
+        <div class="stack">
+          <button id="favorite-button" aria-pressed="false">
+            Mark as favorite
+          </button>
+          <button
+            id="details-button"
+            class="secondary"
+            aria-expanded="false"
+            aria-controls="details-panel"
+          >
+            Show details
+          </button>
+          <div id="details-panel" hidden>
+            <p>
+              The button controls this panel and announces the expanded state.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="form" class="card stack" aria-labelledby="form-title">
+        <h2 id="form-title">Form with labels and errors</h2>
+        <form id="signup-form" class="stack" novalidate>
+          <fieldset>
+            <legend>Contact details</legend>
+            <div class="stack">
+              <label for="email">Email</label>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                autocomplete="email"
+                required
+                aria-describedby="email-hint email-error"
+              >
+              <p id="email-hint" class="hint">
+                We will never share your email.
+              </p>
+              <p id="email-error" class="error" aria-live="polite"></p>
+            </div>
+          </fieldset>
+          <button type="submit">Create account</button>
+        </form>
+      </section>
+
+      <section id="status" class="card stack" aria-labelledby="status-title">
+        <h2 id="status-title">Status updates</h2>
+        <p>Use aria-live regions for async updates.</p>
+        <button id="status-button" class="secondary">Send status update</button>
+        <div id="status-region" class="status" role="status" aria-live="polite"></div>
+      </section>
+
+      <section id="disclosure" class="card stack" aria-labelledby="disclosure-title">
+        <h2 id="disclosure-title">Disclosure using details</h2>
+        <details>
+          <summary>What makes this accessible?</summary>
+          <p>
+            The summary element is keyboard focusable and exposes open/closed
+            state without extra ARIA.
+          </p>
+        </details>
+      </section>
+    </main>
+
+    <aside class="card" aria-labelledby="checklist-title">
+      <h2 id="checklist-title">Quick checklist</h2>
+      <ul>
+        <li>Tab through controls in a logical order.</li>
+        <li>Ensure the focus ring is visible.</li>
+        <li>Trigger form errors and read the message.</li>
+        <li>Use the skip link at the top of the page.</li>
+      </ul>
+    </aside>
+
+    <footer>
+      <p>Try this page with keyboard and screen reader.</p>
+    </footer>
+
+    <script>
+      const skipLink = document.querySelector(".skip-link");
+      const main = document.getElementById("main");
+
+      skipLink.addEventListener("click", () => {
+        main.focus();
+      });
+
+      const favoriteButton = document.getElementById("favorite-button");
+      favoriteButton.addEventListener("click", () => {
+        const pressed = favoriteButton.getAttribute("aria-pressed") === "true";
+        favoriteButton.setAttribute("aria-pressed", String(!pressed));
+        favoriteButton.textContent = pressed
+          ? "Mark as favorite"
+          : "Marked as favorite";
+      });
+
+      const detailsButton = document.getElementById("details-button");
+      const detailsPanel = document.getElementById("details-panel");
+      detailsButton.addEventListener("click", () => {
+        const expanded = detailsButton.getAttribute("aria-expanded") === "true";
+        detailsButton.setAttribute("aria-expanded", String(!expanded));
+        detailsPanel.hidden = expanded;
+        detailsButton.textContent = expanded ? "Show details" : "Hide details";
+      });
+
+      const form = document.getElementById("signup-form");
+      const emailInput = document.getElementById("email");
+      const emailError = document.getElementById("email-error");
+      const statusRegion = document.getElementById("status-region");
+
+      function setEmailError(message) {
+        emailError.textContent = message;
+        if (message) {
+          emailInput.setAttribute("aria-invalid", "true");
+        } else {
+          emailInput.removeAttribute("aria-invalid");
+        }
+      }
+
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const value = emailInput.value.trim();
+
+        if (!value) {
+          setEmailError("Email is required.");
+          emailInput.focus();
+          return;
+        }
+
+        if (!emailInput.checkValidity()) {
+          setEmailError("Enter a valid email address.");
+          emailInput.focus();
+          return;
+        }
+
+        setEmailError("");
+        statusRegion.textContent = "Thanks! A confirmation email was sent.";
+      });
+
+      const statusButton = document.getElementById("status-button");
+      statusButton.addEventListener("click", () => {
+        const time = new Date().toLocaleTimeString();
+        statusRegion.textContent = `Status updated at ${time}.`;
+      });
+    </script>
+  </body>
+</html>

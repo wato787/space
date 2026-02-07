@@ -15,6 +15,7 @@
 - `terraform` - IaC基礎、state/plan/apply、例コードまとめ
 - `example-topic` - テンプレの使い方サンプル（不要なら削除OK）
 - `go-pointer` - Goのポインタ基礎（`&` / `*` / `nil` / ポインタレシーバ）
+- `accessibility` - アクセシビリティ基礎（セマンティックHTML/ARIA/チェックリスト）
 - `react-suspense-tanstack-query` - React Suspense と TanStack Query の連携メモ
 - `modern-css` - 最新CSSの機能整理、よくあるCSSとの比較、遷移ベスプラ
 
